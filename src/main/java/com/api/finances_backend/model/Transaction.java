@@ -1,43 +1,28 @@
 package com.api.finances_backend.model;
 
-
 import com.api.finances_backend.entity.User;
 import jakarta.persistence.*;
-import jdk.jfr.Category;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
-
+@Data
 @Entity
-@Table(name = "transactions")
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private BigDecimal amount;
-
-    @Column(nullable = false)
-    private LocalDate date;
-
-    private String description;
+    private double amount; // Monto de la transacción
+    private String description; // Descripción (ej: "Cena en restaurante")
+    private LocalDate date; // Fecha de la transacción
+    private String type; // Tipo: "INGRESO" o "GASTO"
 
     @ManyToOne
-    @JoinColumn(name= "category_id" , nullable = false) //Relacion con una categoria
-    private Category category;
+    @JoinColumn(name = "user_id")
+    private User user; // Relación con el usuario
 
     @ManyToOne
-    @JoinColumn(name= "user_id" , nullable = false)
-    private User user;   //Relacion con el usuario propietario
-
+    @JoinColumn(name = "category_id")
+    private Category category; // Relación con la categoría
 }
