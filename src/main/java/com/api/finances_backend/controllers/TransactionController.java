@@ -1,6 +1,7 @@
 package com.api.finances_backend.controllers;
 
 import com.api.finances_backend.model.Transaction;
+import com.api.finances_backend.services.GoalService;
 import com.api.finances_backend.services.TransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.parameters.P;
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class TransactionController {
     private final TransactionService transactionService;
+    private final GoalService goalService;
 
     //Obtenie todas las transactions
     @GetMapping
@@ -30,6 +32,9 @@ public class TransactionController {
     //Crea transacciones
     @PostMapping
     public Transaction createTransaction(@RequestBody Transaction transaction) {
+        if(transaction.getGoal() != null) {
+            goalService.updateGoalProgress(transaction.getGoal().getId());
+        }
         return transactionService.createTransaction(transaction);
     }
 

@@ -19,10 +19,16 @@ public class Transaction {
     private String type; // Tipo: "INGRESO" o "GASTO"
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id" , nullable = false)
     private User user; // Relación con el usuario
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category; // Relación con la categoría
+
+    @ManyToOne
+    @JoinColumn(name = "goal_id")
+    private Goal goal; // Relación con la metas
+
+
 }

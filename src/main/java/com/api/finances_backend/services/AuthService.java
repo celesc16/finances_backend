@@ -7,6 +7,9 @@ import com.api.finances_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -48,4 +51,24 @@ public class AuthService {
                 .token(jwtToken)
                 .build();
     }
+    public String getCurrentUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+            return ((UserDetails) authentication.getPrincipal()).getUsername();
+        }
+        throw new RuntimeException("Usuario no autenticado");
+    }
+
+    // Obtener el usuario autenticado
+    public User getCurrentUser() {
+        String email = getCurrentUsername();
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    }
+
+    // Obtener el ID del usuario autenticado
+    public Long getCurrentUserId() {
+        return getCurrentUser().getId();
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.api.finances_backend.model;
 
+import com.api.finances_backend.entity.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,8 +14,17 @@ public class Category {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
-    @OneToMany (mappedBy = "category", cascade = CascadeType.ALL)
+    @Column(nullable = false)
+    private String type;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id" , nullable = false)
+    private User user;
+
+    @OneToMany (mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore // evita recursividad en JSON
     private List<Transaction> transactions;
 }

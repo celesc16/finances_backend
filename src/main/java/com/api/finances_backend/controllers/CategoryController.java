@@ -4,6 +4,7 @@ package com.api.finances_backend.controllers;
 import com.api.finances_backend.model.Category;
 import com.api.finances_backend.services.CategoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
