@@ -4,6 +4,7 @@ import com.api.finances_backend.dtos.AuthRequest;
 import com.api.finances_backend.dtos.AuthResponse;
 import com.api.finances_backend.dtos.RegisterRequest;
 import com.api.finances_backend.services.AuthService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;

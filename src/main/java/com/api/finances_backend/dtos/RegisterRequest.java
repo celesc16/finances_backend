@@ -14,10 +14,13 @@ import org.springframework.context.annotation.Bean;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterRequest {
-    @NotBlank(null)
+    @NotBlank(message = "El nombre no Puede ser nulo")
+    @NotBlank(message = "El nombre no puede estar vacio")
     public String name;
-    @NotBlank
+
+    @NotBlank(message = "El correo electrico es obligatorio")
     public String email;
-    @NotBlank
+
+    @NotBlank(message = "La contraseña es obligatoria ")
     public String password;
 }
