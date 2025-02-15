@@ -1,15 +1,11 @@
 package com.api.finances_backend.services;
 
-import com.api.finances_backend.model.Category;
 import com.api.finances_backend.model.Goal;
-import com.api.finances_backend.entity.User;
 import com.api.finances_backend.model.Transaction;
 import com.api.finances_backend.repository.GoalRepository;
 import com.api.finances_backend.repository.TransactionRepository;
-import com.api.finances_backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.ResourceAccessException;
 
 import java.util.List;
 

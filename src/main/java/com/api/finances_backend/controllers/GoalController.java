@@ -1,9 +1,7 @@
 package com.api.finances_backend.controllers;
 
 import com.api.finances_backend.model.Goal;
-import com.api.finances_backend.services.CategoryService;
 import com.api.finances_backend.services.GoalService;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

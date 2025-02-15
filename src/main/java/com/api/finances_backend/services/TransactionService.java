@@ -30,6 +30,7 @@ public class TransactionService {
     //Crear una Transaccion
     public Transaction createTransaction(Transaction transaction) {
         User user = authService.getCurrentUser();
+        transaction.setUser(user);
         return transactionRepository.save(transaction);
     }
 
@@ -42,8 +43,9 @@ public class TransactionService {
         existingTransaction.setDate(transaction.getDate());
         existingTransaction.setType(transaction.getType());
         existingTransaction.setDate(transaction.getDate());
-        existingTransaction.setCategory(transaction.getCategory());
         existingTransaction.setDescription(transaction.getDescription());
+        existingTransaction.setPaymentMethod(transaction.getPaymentMethod());
+        existingTransaction.setSourceAccounts(transaction.getSourceAccounts());
         return transactionRepository.save(existingTransaction);
     }
 

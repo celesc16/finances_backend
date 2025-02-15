@@ -1,6 +1,5 @@
 package com.api.finances_backend.entity;
 
-import com.api.finances_backend.model.Category;
 import com.api.finances_backend.model.Goal;
 import com.api.finances_backend.model.Transaction;
 import jakarta.persistence.*;
@@ -66,9 +65,6 @@ public class User implements UserDetails {
 
         return true; // La cuenta está activa
     }
-
-    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
-    private List<Category> categories; //Relacion con las categorias del user
 
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     @ToString.Exclude

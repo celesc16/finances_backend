@@ -12,19 +12,18 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private double amount;
+    private LocalDate date;
+    private String type;
+    private String description;
+    private String paymentMethod;
+    private String sourceAccounts;
 
-    private double amount; // Monto de la transacción
-    private String description; // Descripción (ej: "Cena en restaurante")
-    private LocalDate date; // Fecha de la transacción
-    private String type; // Tipo: "INGRESO" o "GASTO"
 
     @ManyToOne
     @JoinColumn(name = "user_id" , nullable = false)
     private User user; // Relación con el usuario
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category; // Relación con la categoría
 
     @ManyToOne
     @JoinColumn(name = "goal_id")
