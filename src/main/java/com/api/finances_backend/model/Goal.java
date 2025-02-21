@@ -21,13 +21,14 @@ public class Goal {
     private double targetAmount;  //Monto OBJETIVO
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id" , nullable = false)
-    @JsonBackReference
-    private User user; // Relación con el usuario
 
     @OneToMany(mappedBy = "goal" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference(value = "goal-transactions")
     private List<Transaction> transactions; //Relacion con las transacciones de las metas
+
+    @ManyToOne
+    @JoinColumn(name = "user_id" , nullable = false)
+    @JsonBackReference(value = "user-goals")
+    private User user; // Relación con el usuario
 
 }

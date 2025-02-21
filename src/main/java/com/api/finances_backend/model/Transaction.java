@@ -23,11 +23,11 @@ public class Transaction {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference(value = "user-transactions")
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "goal_id" , nullable = false)
-    @JsonBackReference
+    @JsonBackReference(value = "goal-transactions")
     private Goal goal; // Relación con la metas
 }

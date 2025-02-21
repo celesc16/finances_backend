@@ -70,11 +70,11 @@ public class User implements UserDetails {
     }
 
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference(value = "user-transactions")
     private List<Transaction> transactions; //Relacion con las transacciones del user
 
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference(value = "user-goals")
     private List<Goal> goals; //Relacion con las categorias del user
 
 
