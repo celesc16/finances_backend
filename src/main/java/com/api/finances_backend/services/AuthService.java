@@ -10,7 +10,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.api.finances_backend.entity.User;
@@ -23,7 +22,6 @@ public class AuthService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-
 
 
     public AuthResponse register(RegisterRequest request) {
@@ -51,24 +49,15 @@ public class AuthService {
                 .token(jwtToken)
                 .build();
     }
-    public String getCurrentUsername() {
+
+    public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
-            return ((UserDetails) authentication.getPrincipal()).getUsername();
+            String email = ((UserDetails) authentication.getPrincipal()).getUsername();
+            System.out.println("Usuario autenticado: " + email); // Log para depuración
+            return userRepository.findByEmail(email)
+                    .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         }
         throw new RuntimeException("Usuario no autenticado");
     }
-
-    // Obtener el usuario autenticado
-    public User getCurrentUser() {
-        String email = getCurrentUsername();
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-    }
-
-    // Obtener el ID del usuario autenticado
-    public Long getCurrentUserId() {
-        return getCurrentUser().getId();
-    }
-
 }

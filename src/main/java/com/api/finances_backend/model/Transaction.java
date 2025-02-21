@@ -1,6 +1,8 @@
 package com.api.finances_backend.model;
 
 import com.api.finances_backend.entity.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,15 +21,13 @@ public class Transaction {
     private String paymentMethod;
     private String sourceAccounts;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
+    private User user;
 
     @ManyToOne
-    @JoinColumn(name = "user_id" , nullable = false)
-    private User user; // Relación con el usuario
-
-
-    @ManyToOne
-    @JoinColumn(name = "goal_id")
+    @JoinColumn(name = "goal_id" , nullable = false)
+    @JsonBackReference
     private Goal goal; // Relación con la metas
-
-
 }

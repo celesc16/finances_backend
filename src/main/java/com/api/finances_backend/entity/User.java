@@ -2,10 +2,13 @@ package com.api.finances_backend.entity;
 
 import com.api.finances_backend.model.Goal;
 import com.api.finances_backend.model.Transaction;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -67,11 +70,13 @@ public class User implements UserDetails {
     }
 
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    @ToString.Exclude
+    @JsonManagedReference
     private List<Transaction> transactions; //Relacion con las transacciones del user
 
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
-    @ToString.Exclude
+    @JsonManagedReference
     private List<Goal> goals; //Relacion con las categorias del user
+
+
 
 }

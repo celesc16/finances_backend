@@ -8,6 +8,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/transactions")
@@ -20,13 +21,13 @@ public class TransactionController {
     //Obtenie todas las transactions
     @GetMapping
     public List<Transaction> getTransactions() {
-        return transactionService.getAllTransactions();
+        return transactionService.getUserTransactions();
     }
 
-    //Obtiene transacciones por id
     @GetMapping("/{id}")
-    public Transaction getTransactionsById(@PathVariable Long id) {
-        return transactionService.getTransactionById(id);
+    public Transaction getTransactionById(@PathVariable Long id) {
+        return transactionService.getTransactionById(id)
+                .orElseThrow(() -> new RuntimeException("Transacción no encontrada"));
     }
 
     //Crea transacciones
@@ -49,7 +50,5 @@ public class TransactionController {
     public void deleteTransaction(@PathVariable Long id) {
         transactionService.deleteTransaction(id);
     }
-
-
 
 }
