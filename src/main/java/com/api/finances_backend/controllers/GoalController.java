@@ -1,10 +1,9 @@
 package com.api.finances_backend.controllers;
 
-import com.api.finances_backend.model.Goal;
-import com.api.finances_backend.model.Transaction;
+import com.api.finances_backend.dtos.GoalRequest;
 import com.api.finances_backend.services.GoalService;
-import com.api.finances_backend.services.TransactionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,34 +12,34 @@ import java.util.List;
 @RequestMapping("/api/goals")
 @RequiredArgsConstructor
 public class GoalController {
-    private final TransactionService transactionService;
     private final GoalService goalService;
 
-    //Obtenie todas las transactions
+    // Obtener todas las metas del usuario autenticado
     @GetMapping
-    public List<Goal> getGoals() {
-        return goalService.getUserGoals();
+    public List<GoalRequest> getGoals() {
+        return goalService.getUserGoals(); // El estado se actualiza automáticamente
     }
 
+    // Obtener una meta por su ID
     @GetMapping("/{id}")
-    public Goal getGoalById(@PathVariable Long id) {
+    public GoalRequest getGoalById(@PathVariable Long id) {
         return goalService.getGoalById(id)
-                .orElseThrow(() -> new RuntimeException("Transacción no encontrada"));
+                .orElseThrow(() -> new RuntimeException("Meta no encontrada"));
     }
 
-    //Crea transacciones
+    // Crear una nueva meta
     @PostMapping
-    public Goal createGoal(@RequestBody Goal goal) {
-        return goalService.createGoal(goal);
+    public GoalRequest createGoal(@RequestBody GoalRequest goalDto) {
+        return goalService.createGoal(goalDto);
     }
 
-    //Actualiza transacciones
+    // Actualizar una meta existente
     @PutMapping("/{id}")
-    public Goal updateGoal(@PathVariable Long id , @RequestBody Goal goal){
-        return goalService.updateGoal(id, goal);
+    public GoalRequest updateGoal(@PathVariable Long id, @RequestBody GoalRequest goalDto) {
+        return goalService.updateGoal(id, goalDto);
     }
 
-    //Elimina transacciones
+    // Eliminar una meta
     @DeleteMapping("/{id}")
     public void deleteGoal(@PathVariable Long id) {
         goalService.deleteGoal(id);

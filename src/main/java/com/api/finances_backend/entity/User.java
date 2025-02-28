@@ -8,7 +8,6 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -71,11 +70,12 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     @JsonManagedReference(value = "user-transactions")
-    private List<Transaction> transactions; //Relacion con las transacciones del user
+    private List<Transaction> transactions; //Relacion con las transacciones
+
 
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
     @JsonManagedReference(value = "user-goals")
-    private List<Goal> goals; //Relacion con las categorias del user
+    private List<Goal> goals; //Relacion con las categorias
 
 
 

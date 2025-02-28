@@ -10,5 +10,7 @@ import java.util.Optional;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
     List<Transaction> findByUserId(Long userId);
-    List<Transaction> findByGoalId(Long goalId);
+    List<Transaction> findByGoalId(long goalId);
+    List<Transaction> findByRecurretTrue();
+
 }
