@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
     List<Transaction> findByUserId(Long userId);
     List<Transaction> findByGoalId(long goalId);
-    List<Transaction> findByRecurretTrue();
+    List<Transaction> findByRecurrentTrue();
 
 }
